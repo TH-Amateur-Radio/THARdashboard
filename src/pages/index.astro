@@ -1,11 +1,294 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const navItems = [
+	{ label: 'Overview', href: '#' },
+	{ label: 'Docs', href: '#' },
+	{ label: 'Community', href: '#' },
+	{ label: 'Download', href: '#' },
+	{ label: 'Support', href: '#' },
+];
 ---
 
 <Layout>
-	<Welcome />
+	<div class="page-shell">
+		<div class="background-layer" aria-hidden="true"></div>
+		<div class="red-mask" aria-hidden="true"></div>
+
+		<header class="topbar">
+			<a class="logo-slot" href="#" aria-label="Home">
+				<div class="logo-mark">LOGO</div>
+			</a>
+
+			<nav aria-label="Main navigation" class="nav-shell">
+				<ul>
+					{navItems.map((item) => (
+						<li><a href={item.href}>{item.label}</a></li>
+					))}
+				</ul>
+			</nav>
+		</header>
+
+		<main class="hero">
+			<section class="hero-logo" aria-label="Large logo placeholder">
+				<div class="hero-logo-art">590 × 1098</div>
+			</section>
+
+			<section class="hero-copy">
+				<p class="eyebrow">Astro navigation concept</p>
+				<h1>Built for a layered, full-viewport navigation experience.</h1>
+				<p>
+					A responsive layout inspired by the dense, editorial feel of kali.org, with a
+					transparent navigation bar, a strong hero mark, and a mask-driven background.
+				</p>
+				<div class="hero-actions">
+					<a href="#">Primary action</a>
+					<a href="#">Secondary action</a>
+				</div>
+			</section>
+		</main>
+	</div>
 </Layout>
+
+<style>
+	:global(body) {
+		overflow: hidden;
+		background: #050505;
+	}
+
+	.page-shell {
+		position: relative;
+		min-height: 100svh;
+		width: 100%;
+		isolation: isolate;
+		overflow: hidden;
+	}
+
+	.background-layer,
+	.red-mask {
+		position: absolute;
+		inset: 0;
+	}
+
+	.background-layer {
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2400' height='1600' viewBox='0 0 2400 1600'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%230d1117'/%3E%3Cstop offset='48%25' stop-color='%23131c2d'/%3E%3Cstop offset='100%25' stop-color='%2324272f'/%3E%3C/linearGradient%3E%3CradialGradient id='r' cx='50%25' cy='35%25' r='70%25'%3E%3Cstop offset='0%25' stop-color='%233c4458' stop-opacity='0.9'/%3E%3Cstop offset='100%25' stop-color='%230d1117' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='2400' height='1600' fill='url(%23g)'/%3E%3Crect width='2400' height='1600' fill='url(%23r)'/%3E%3Cpath d='M0 1080C300 960 480 900 720 940C970 980 1160 1130 1410 1100C1660 1070 1840 860 2400 760V1600H0Z' fill='%23181f2f' fill-opacity='0.55'/%3E%3C/svg%3E");
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+		transform: scale(1.04);
+	}
+
+	.red-mask {
+		background: rgba(177, 28, 28, 0.1);
+		mix-blend-mode: screen;
+	}
+
+	.topbar {
+		position: relative;
+		z-index: 3;
+		display: flex;
+		align-items: stretch;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 0;
+		min-height: 200px;
+	}
+
+	.logo-slot {
+		flex: 0 0 200px;
+		width: 200px;
+		height: 200px;
+		display: grid;
+		place-items: center;
+		text-decoration: none;
+		color: inherit;
+	}
+
+	.logo-mark {
+		width: 100%;
+		height: 100%;
+		display: grid;
+		place-items: center;
+		border: 1px solid rgba(255, 255, 255, 0.14);
+		background: rgba(255, 255, 255, 0.04);
+		backdrop-filter: blur(10px);
+		color: rgba(255, 255, 255, 0.82);
+		font-size: 0.95rem;
+		letter-spacing: 0.24em;
+	}
+
+	.nav-shell {
+		flex: 1 1 auto;
+		display: flex;
+		justify-content: flex-end;
+		align-items: flex-start;
+		padding: 1.5rem 2rem 0 0;
+		background: transparent;
+	}
+
+	.nav-shell ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: flex-end;
+		gap: 0.5rem 1.5rem;
+	}
+
+	.nav-shell a {
+		color: rgba(255, 255, 255, 0.88);
+		text-decoration: none;
+		font-size: 0.92rem;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		padding: 0.25rem 0;
+	}
+
+	.hero {
+		position: relative;
+		z-index: 2;
+		display: flex;
+		align-items: stretch;
+		justify-content: space-between;
+		min-height: calc(100svh - 200px);
+	}
+
+	.hero-logo {
+		flex: 0 0 auto;
+		margin-left: 200px;
+		display: flex;
+		align-items: stretch;
+		justify-content: center;
+		min-height: calc(100svh - 200px);
+	}
+
+	.hero-logo-art {
+		width: min(590px, 34vw);
+		min-height: min(1098px, 100svh);
+		align-self: stretch;
+		display: grid;
+		place-items: center;
+		background:
+			linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
+			linear-gradient(145deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.02));
+		border-left: 1px solid rgba(255, 255, 255, 0.1);
+		border-right: 1px solid rgba(255, 255, 255, 0.1);
+		color: rgba(255, 255, 255, 0.82);
+		font-size: clamp(1rem, 1.4vw, 1.2rem);
+		letter-spacing: 0.22em;
+		backdrop-filter: blur(8px);
+	}
+
+	.hero-copy {
+		flex: 1 1 0;
+		margin: 200px 0 0 200px;
+		padding: 0 2rem 2rem 0;
+		max-width: 46rem;
+		color: rgba(255, 255, 255, 0.92);
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+	}
+
+	.eyebrow {
+		margin: 0 0 1rem;
+		font-size: 0.82rem;
+		letter-spacing: 0.28em;
+		text-transform: uppercase;
+		color: rgba(255, 255, 255, 0.68);
+	}
+
+	h1 {
+		margin: 0;
+		font-size: clamp(2.4rem, 4vw, 5.5rem);
+		line-height: 0.94;
+		max-width: 12ch;
+	}
+
+	.hero-copy p:last-of-type {
+		margin: 1.25rem 0 0;
+		max-width: 34rem;
+		font-size: 1.05rem;
+		line-height: 1.7;
+		color: rgba(255, 255, 255, 0.76);
+	}
+
+	.hero-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+		margin-top: 2rem;
+	}
+
+	.hero-actions a {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 3rem;
+		padding: 0 1.25rem;
+		border-radius: 999px;
+		text-decoration: none;
+		color: rgba(255, 255, 255, 0.94);
+		border: 1px solid rgba(255, 255, 255, 0.15);
+		background: rgba(255, 255, 255, 0.05);
+		backdrop-filter: blur(10px);
+	}
+
+	.hero-actions a:first-child {
+		background: linear-gradient(83.21deg, #ff3647 0%, #d81f4b 100%);
+		border-color: transparent;
+	}
+
+	@media (max-width: 1200px) {
+		.hero {
+			flex-direction: column;
+		}
+
+		.hero-logo {
+			margin-left: 0;
+			min-height: auto;
+			padding: 0 1.25rem;
+		}
+
+		.hero-logo-art {
+			width: min(590px, calc(100vw - 2.5rem));
+			min-height: 42rem;
+		}
+
+		.hero-copy {
+			margin: 2rem 0 0;
+			padding: 0 1.25rem 2rem;
+			max-width: 42rem;
+		}
+	}
+
+	@media (max-width: 720px) {
+		.topbar {
+			flex-direction: column;
+			min-height: auto;
+		}
+
+		.logo-slot {
+			width: 100%;
+			justify-content: flex-start;
+		}
+
+		.nav-shell {
+			padding: 0 1.25rem 1.25rem;
+			justify-content: flex-start;
+		}
+
+		.nav-shell ul {
+			justify-content: flex-start;
+		}
+
+		.hero-logo-art {
+			min-height: 26rem;
+		}
+
+		h1 {
+			max-width: 100%;
+		}
+	}
+</style>
