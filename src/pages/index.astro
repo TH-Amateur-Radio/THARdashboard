@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import tharlonglogo from '../assets/thar.png';
 
 const navItems = [
 	{ label: 'Overview', href: '#' },
@@ -31,7 +32,9 @@ const navItems = [
 
 		<main class="hero">
 			<section class="hero-logo" aria-label="Large logo placeholder">
-				<div class="hero-logo-art">590 × 1098</div>
+				<div class="hero-logo-art">
+					<img src={tharlonglogo.src} alt="THAR logo" />
+				</div>
 			</section>
 
 			<section class="hero-copy">
@@ -52,7 +55,8 @@ const navItems = [
 
 <style>
 	:global(body) {
-		overflow: hidden;
+		overflow-x: hidden;
+		overflow-y: auto;
 		background: #050505;
 	}
 
@@ -61,7 +65,8 @@ const navItems = [
 		min-height: 100svh;
 		width: 100%;
 		isolation: isolate;
-		overflow: hidden;
+		overflow-x: hidden;
+		overflow-y: visible;
 	}
 
 	.background-layer,
@@ -91,13 +96,13 @@ const navItems = [
 		justify-content: space-between;
 		gap: 1rem;
 		padding: 0;
-		min-height: 200px;
+		min-height: 150px;
 	}
 
 	.logo-slot {
-		flex: 0 0 200px;
-		width: 200px;
-		height: 200px;
+		flex: 0 0 150px;
+		width: 150px;
+		height: 150px;
 		display: grid;
 		place-items: center;
 		text-decoration: none;
@@ -148,41 +153,40 @@ const navItems = [
 	.hero {
 		position: relative;
 		z-index: 2;
-		display: flex;
-		align-items: stretch;
-		justify-content: space-between;
-		min-height: calc(100svh - 200px);
+		min-height: 1080px;
+		padding-bottom: 2rem;
 	}
 
 	.hero-logo {
-		flex: 0 0 auto;
-		margin-left: 200px;
-		display: flex;
-		align-items: stretch;
-		justify-content: center;
-		min-height: calc(100svh - 200px);
+		position: absolute;
+		top: 0;
+		left: 200px;
+		z-index: 2;
+		display: block;
+		width: auto;
+		height: 1080px;
 	}
 
 	.hero-logo-art {
-		width: min(590px, 34vw);
-		min-height: min(1098px, 100svh);
-		align-self: stretch;
-		display: grid;
-		place-items: center;
-		background:
-			linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
-			linear-gradient(145deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.02));
-		border-left: 1px solid rgba(255, 255, 255, 0.1);
-		border-right: 1px solid rgba(255, 255, 255, 0.1);
-		color: rgba(255, 255, 255, 0.82);
-		font-size: clamp(1rem, 1.4vw, 1.2rem);
-		letter-spacing: 0.22em;
-		backdrop-filter: blur(8px);
+		height: 1080px;
+		width: auto;
+		display: inline-flex;
+		align-items: stretch;
+		justify-content: center;
+	}
+
+	.hero-logo-art img {
+		display: block;
+		height: 1080px;
+		width: auto;
+		max-width: none;
+		object-fit: contain;
 	}
 
 	.hero-copy {
-		flex: 1 1 0;
-		margin: 200px 0 0 200px;
+		position: relative;
+		z-index: 2;
+		margin: 200px 0 0 980px;
 		padding: 0 2rem 2rem 0;
 		max-width: 46rem;
 		color: rgba(255, 255, 255, 0.92);
@@ -242,18 +246,25 @@ const navItems = [
 
 	@media (max-width: 1200px) {
 		.hero {
-			flex-direction: column;
+			min-height: auto;
 		}
 
 		.hero-logo {
-			margin-left: 0;
-			min-height: auto;
+			position: relative;
+			left: 0;
+			top: 0;
+			height: auto;
 			padding: 0 1.25rem;
 		}
 
 		.hero-logo-art {
+			height: auto;
+			max-width: calc(100vw - 2.5rem);
+		}
+
+		.hero-logo-art img {
 			width: min(590px, calc(100vw - 2.5rem));
-			min-height: 42rem;
+			height: auto;
 		}
 
 		.hero-copy {
@@ -284,7 +295,12 @@ const navItems = [
 		}
 
 		.hero-logo-art {
-			min-height: 26rem;
+			max-width: calc(100vw - 2.5rem);
+		}
+
+		.hero-logo-art img {
+			width: min(100%, 590px);
+			height: auto;
 		}
 
 		h1 {
