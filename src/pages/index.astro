@@ -62,7 +62,7 @@ const navItems = [
 
 	.page-shell {
 		position: relative;
-		min-height: 100svh;
+		min-height: max(100svh, 1080px);
 		width: 100%;
 		isolation: isolate;
 		overflow-x: hidden;
@@ -126,8 +126,9 @@ const navItems = [
 		flex: 1 1 auto;
 		display: flex;
 		justify-content: flex-end;
-		align-items: flex-start;
-		padding: 1.5rem 2rem 0 0;
+		align-items: center;
+		height: 150px;
+		padding: 0 2rem 0 0;
 		background: transparent;
 	}
 
@@ -138,6 +139,7 @@ const navItems = [
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: flex-end;
+		align-items: center;
 		gap: 0.5rem 1.5rem;
 	}
 
@@ -151,10 +153,11 @@ const navItems = [
 	}
 
 	.hero {
-		position: relative;
+		position: absolute;
+		inset: 0;
 		z-index: 2;
-		min-height: 1080px;
-		padding-bottom: 2rem;
+		min-height: 800px;
+		/* padding-bottom: 2rem; */
 	}
 
 	.hero-logo {
@@ -164,11 +167,11 @@ const navItems = [
 		z-index: 2;
 		display: block;
 		width: auto;
-		height: 1080px;
+		height: 800px;
 	}
 
 	.hero-logo-art {
-		height: 1080px;
+		height: 800px;
 		width: auto;
 		display: inline-flex;
 		align-items: stretch;
@@ -177,7 +180,7 @@ const navItems = [
 
 	.hero-logo-art img {
 		display: block;
-		height: 1080px;
+		height: 800px;
 		width: auto;
 		max-width: none;
 		object-fit: contain;
@@ -186,7 +189,7 @@ const navItems = [
 	.hero-copy {
 		position: relative;
 		z-index: 2;
-		margin: 200px 0 0 980px;
+		margin: 200px 0 0 600px;
 		padding: 0 2rem 2rem 0;
 		max-width: 46rem;
 		color: rgba(255, 255, 255, 0.92);
