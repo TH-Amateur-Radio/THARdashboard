@@ -167,6 +167,10 @@ const navItems = [
 		display: block;
 		width: auto;
 		height: 800px;
+		transition:
+			transform 220ms ease,
+			opacity 220ms ease,
+			filter 220ms ease;
 	}
 
 	.hero-logo-art {
@@ -252,21 +256,24 @@ const navItems = [
 		}
 
 		.hero-logo {
-			position: relative;
-			left: 0;
+			left: 200px;
 			top: 0;
-			height: auto;
-			padding: 0 1.25rem;
+			height: 800px;
+			padding: 0;
+			transform: translateX(clamp(-420px, calc((100vw - 1200px) * 1.05), 0px));
+			opacity: clamp(0, calc((100vw - 1200px) / 420 + 1), 1);
+			filter: blur(calc((1200px - 100vw) / 240 + 0px));
+			pointer-events: none;
 		}
 
 		.hero-logo-art {
-			height: auto;
-			max-width: calc(100vw - 2.5rem);
+			height: 800px;
+			max-width: none;
 		}
 
 		.hero-logo-art img {
-			width: min(590px, calc(100vw - 2.5rem));
-			height: auto;
+			width: auto;
+			height: 800px;
 		}
 
 		.hero-copy {
