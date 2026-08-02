@@ -22,11 +22,19 @@ const navItems = [
 			</a>
 
 			<nav aria-label="Main navigation" class="nav-shell">
-				<ul>
+				<ul class="nav-list-desktop">
 					{navItems.map((item) => (
 						<li><a href={item.href}>{item.label}</a></li>
 					))}
 				</ul>
+				<details class="nav-dropdown">
+					<summary>Menu</summary>
+					<ul class="nav-list-mobile">
+						{navItems.map((item) => (
+							<li><a href={item.href}>{item.label}</a></li>
+						))}
+					</ul>
+				</details>
 			</nav>
 		</header>
 
@@ -131,7 +139,7 @@ const navItems = [
 		background: transparent;
 	}
 
-	.nav-shell ul {
+	.nav-list-desktop {
 		margin: 0;
 		padding: 0;
 		list-style: none;
@@ -140,6 +148,64 @@ const navItems = [
 		justify-content: flex-end;
 		align-items: center;
 		gap: 0.5rem 1.5rem;
+	}
+
+	.nav-dropdown {
+		display: none;
+		position: relative;
+	}
+
+	.nav-dropdown > summary {
+		list-style: none;
+		cursor: pointer;
+		color: rgba(255, 255, 255, 0.9);
+		font-size: 0.92rem;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		padding: 0.5rem 0.85rem;
+		border: 1px solid rgba(255, 255, 255, 0.18);
+		border-radius: 0.5rem;
+		background: rgba(0, 0, 0, 0.28);
+		user-select: none;
+	}
+
+	.nav-dropdown > summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.nav-list-mobile {
+		display: none;
+		position: absolute;
+		top: calc(100% + 0.45rem);
+		right: 0;
+		margin: 0;
+		padding: 0.4rem 0;
+		min-width: 10rem;
+		list-style: none;
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+		border: 1px solid rgba(255, 255, 255, 0.16);
+		border-radius: 0.55rem;
+		background: rgba(0, 0, 0, 0.52);
+		backdrop-filter: blur(10px);
+	}
+
+	.nav-dropdown[open] .nav-list-mobile {
+		display: flex;
+	}
+
+	.nav-list-mobile li {
+		margin: 0;
+	}
+
+	.nav-list-mobile a {
+		display: block;
+		padding: 0.55rem 0.85rem;
+	}
+
+	.nav-list-mobile a:hover {
+		background: rgba(255, 255, 255, 0.08);
 	}
 
 	.nav-shell a {
@@ -305,12 +371,23 @@ const navItems = [
 		}
 
 		.nav-shell {
+			height: auto;
 			padding: 0 1.25rem 1.25rem;
 			justify-content: flex-start;
+			align-items: flex-start;
 		}
 
-		.nav-shell ul {
-			justify-content: flex-start;
+		.nav-list-desktop {
+			display: none;
+		}
+
+		.nav-dropdown {
+			display: block;
+		}
+
+		.nav-list-mobile {
+			left: 0;
+			right: auto;
 		}
 
 		.hero-logo-art {
