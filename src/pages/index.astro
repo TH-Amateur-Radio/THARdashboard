@@ -361,20 +361,25 @@ const navItems = [
 
 	@media (max-width: 720px) {
 		.topbar {
-			flex-direction: column;
-			min-height: auto;
+			flex-direction: row;
+			align-items: center;
+			min-height: 150px;
+			gap: 0.75rem;
 		}
 
 		.logo-slot {
-			width: 100%;
-			justify-content: flex-start;
+			flex: 0 0 150px;
+			width: 150px;
+			height: 150px;
+			justify-content: center;
 		}
 
 		.nav-shell {
 			height: auto;
-			padding: 0 1.25rem 1.25rem;
-			justify-content: flex-start;
-			align-items: flex-start;
+			padding: 0 1.25rem 0 0;
+			justify-content: flex-end;
+			align-items: center;
+			flex: 1 1 auto;
 		}
 
 		.nav-list-desktop {
@@ -383,6 +388,7 @@ const navItems = [
 
 		.nav-dropdown {
 			display: block;
+			margin-left: auto;
 		}
 
 		.nav-list-mobile {
