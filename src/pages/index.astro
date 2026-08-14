@@ -226,6 +226,9 @@ const navItems = [
 		--hero-logo-left: 200px;
 		--hero-logo-width: calc(800px * 590 / 1098);
 		--hero-copy-gap: 70px;
+		--hero-copy-anchor: calc(
+			var(--hero-logo-left) + var(--hero-shift) + var(--hero-logo-width) + var(--hero-copy-gap)
+		);
 		/* padding-bottom: 2rem; */
 	}
 
@@ -359,23 +362,17 @@ const navItems = [
 		}
 	}
 
-	@media (max-width: 800px) {
-		.hero-copy {
-			left: clamp(
-				1rem,
-				calc(100vw - 46rem - 1rem),
-				calc(var(--hero-logo-left) + var(--hero-shift) + var(--hero-logo-width) + var(--hero-copy-gap))
-			);
-			width: min(46rem, calc(100vw - 2rem));
-			max-width: none;
-			padding: 0 1rem 2rem 0;
-		}
+	.hero-copy h1,
+	.hero-copy p:last-of-type {
+		overflow-wrap: anywhere;
+		word-break: break-word;
+	}
 
-		.hero-copy h1,
-		.hero-copy p:last-of-type {
-			overflow-wrap: anywhere;
-			word-break: break-word;
-		}
+	.hero-copy {
+		width: min(46rem, calc(100vw - 2rem));
+		max-width: none;
+		padding: 0 1rem 2rem 0;
+		left: max(1rem, var(--hero-copy-anchor));
 	}
 
 	@media (max-width: 720px) {
