@@ -158,54 +158,111 @@ const navItems = [
 	.nav-dropdown > summary {
 		list-style: none;
 		cursor: pointer;
-		color: rgba(255, 255, 255, 0.9);
-		font-size: 0.92rem;
-		letter-spacing: 0.08em;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.6rem;
+		color: rgba(255, 255, 255, 0.92);
+		font-size: 0.85rem;
+		font-weight: 500;
+		letter-spacing: 0.14em;
 		text-transform: uppercase;
-		padding: 0.5rem 0.85rem;
-		border: 1px solid rgba(255, 255, 255, 0.18);
-		border-radius: 0.5rem;
-		background: rgba(0, 0, 0, 0.28);
+		padding: 0.7rem 1.1rem;
+		background: rgba(255, 255, 255, 0.06);
+		border: 1px solid rgba(255, 255, 255, 0.14);
+		border-radius: 0;
 		user-select: none;
+		transition:
+			background-color 160ms ease,
+			border-color 160ms ease,
+			color 160ms ease;
+	}
+
+	.nav-dropdown > summary:hover {
+		background: rgba(255, 255, 255, 0.14);
+		border-color: rgba(255, 255, 255, 0.3);
+		color: #fff;
 	}
 
 	.nav-dropdown > summary::-webkit-details-marker {
 		display: none;
 	}
 
+	/* 扁平风格 chevron 指示器 */
+	.nav-dropdown > summary::after {
+		content: '';
+		width: 7px;
+		height: 7px;
+		border-right: 1.5px solid currentColor;
+		border-bottom: 1.5px solid currentColor;
+		transform: rotate(45deg);
+		transition: transform 220ms ease;
+	}
+
+	.nav-dropdown[open] > summary::after {
+		transform: rotate(225deg);
+	}
+
 	.nav-list-mobile {
-		display: none;
-		position: absolute;
-		top: calc(100% + 0.45rem);
-		right: 0;
 		margin: 0;
-		padding: 0.4rem 0;
-		min-width: 10rem;
+		padding: 0.3rem 0;
+		min-width: 11rem;
 		list-style: none;
-		display: flex;
+		position: absolute;
+		top: 100%;
+		right: 0;
 		flex-direction: column;
 		gap: 0;
-		border: 1px solid rgba(255, 255, 255, 0.16);
-		border-radius: 0.55rem;
-		background: rgba(0, 0, 0, 0.52);
-		backdrop-filter: blur(10px);
+		border-radius: 0;
+		background: #0c0d10;
+		border-top: 2px solid #d81f4b;
+		box-shadow: 0 16px 32px rgba(0, 0, 0, 0.55);
+	}
+
+	.nav-dropdown:not([open]) .nav-list-mobile {
+		display: none;
 	}
 
 	.nav-dropdown[open] .nav-list-mobile {
 		display: flex;
+		transform-origin: top right;
+		animation: nav-dropdown-in 180ms ease-out;
 	}
 
 	.nav-list-mobile li {
 		margin: 0;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 	}
 
-	.nav-list-mobile a {
-		display: block;
-		padding: 0.55rem 0.85rem;
+	.nav-list-mobile li:last-child {
+		border-bottom: none;
 	}
 
-	.nav-list-mobile a:hover {
-		background: rgba(255, 255, 255, 0.08);
+	.nav-list-mobile li a {
+		display: flex;
+		align-items: center;
+		padding: 0.65rem 1.1rem 0.65rem 4px;
+		color: rgba(255, 255, 255, 0.82);
+		transition:
+			background-color 160ms ease,
+			color 160ms ease,
+			padding-left 160ms ease;
+	}
+
+	.nav-list-mobile li a:hover {
+		background: rgba(255, 255, 255, 0.1);
+		color: #fff;
+		padding-left: 1.4rem;
+	}
+
+	@keyframes nav-dropdown-in {
+		from {
+			opacity: 0;
+			transform: translateY(-8px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
 	}
 
 	.nav-shell a {
@@ -215,6 +272,27 @@ const navItems = [
 		letter-spacing: 0.08em;
 		text-transform: uppercase;
 		padding: 0.25rem 0;
+	}
+
+	/* 桌面端（未折叠）导航 hover：白底红字、文字微下移 */
+	.nav-list-desktop a {
+		display: inline-block;
+		line-height: 1;
+		padding: 0.5rem 0.9rem;
+		color: rgba(255, 255, 255, 0.92);
+		transition:
+			transform 160ms ease,
+			background-color 160ms ease,
+			color 160ms ease,
+			box-shadow 160ms ease;
+	}
+
+	.nav-list-desktop a:hover,
+	.nav-list-desktop a:focus-visible {
+		background: #ffffff;
+		color: #d81f4b;
+		transform: translateY(2px);
+		box-shadow: 0 6px 16px rgba(216, 31, 75, 0.28);
 	}
 
 	.hero {
@@ -372,7 +450,32 @@ const navItems = [
 		width: min(46rem, calc(100vw - 2rem));
 		max-width: none;
 		padding: 0 1rem 2rem 0;
-		left: max(1rem, var(--hero-copy-anchor));
+		left: max(
+			1rem,
+			calc(var(--hero-copy-anchor) - max(0px, calc(800px - 100vw)))
+		);
+	}
+
+	/* 页面宽度小于 840px：导航折叠为下拉菜单 */
+	@media (max-width: 839.98px) {
+		.nav-shell {
+			height: auto;
+			align-items: center;
+		}
+
+		.nav-list-desktop {
+			display: none;
+		}
+
+		.nav-dropdown {
+			display: block;
+			margin-left: auto;
+		}
+
+		.nav-list-mobile {
+			left: 0;
+			right: auto;
+		}
 	}
 
 	@media (max-width: 720px) {
@@ -388,28 +491,6 @@ const navItems = [
 			width: 150px;
 			height: 150px;
 			justify-content: center;
-		}
-
-		.nav-shell {
-			height: auto;
-			padding: 0 1.25rem 0 0;
-			justify-content: flex-end;
-			align-items: center;
-			flex: 1 1 auto;
-		}
-
-		.nav-list-desktop {
-			display: none;
-		}
-
-		.nav-dropdown {
-			display: block;
-			margin-left: auto;
-		}
-
-		.nav-list-mobile {
-			left: 0;
-			right: auto;
 		}
 
 		.hero-logo-art {
